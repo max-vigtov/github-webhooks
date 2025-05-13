@@ -1,7 +1,7 @@
 import express from 'express';
 import { envs } from './config';
 import { GithubController } from './presentation/github/controller';
-import { GithubService } from './presentation/github/services/github.service';
+import { GithubService, DiscordService } from './presentation/services';
 
 (() => {
 	main();
@@ -10,9 +10,11 @@ import { GithubService } from './presentation/github/services/github.service';
 
 function main() {
 	const app = express();
+	
 	const githubService = new GithubService();
+	const discordService = new DiscordService();
 
-	const controller = new GithubController( githubService );
+	const controller = new GithubController( githubService, discordService );
 
 	app.use( express.json() );
 	app.post('/api/github', controller.webhookHandler);

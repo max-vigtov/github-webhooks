@@ -1,10 +1,10 @@
-import { GithubIssuePayload, GithubStarPayload } from "../../../interfaces";
+import { GithubIssuePayload, GithubStarPayload } from "../../interfaces";
 
 export class GithubService {
 
 	constructor() {}
 
-	onStart( payload: GithubStarPayload): string {
+	onStart( payload: GithubStarPayload ): string {
 		let message: string = '';
 
 		const { action, sender, repository } = payload;
@@ -12,9 +12,7 @@ export class GithubService {
 		return message = `User ${ sender.login } ${ action } star on ${ repository.full_name }`;
 	}
 
-	onIssue( payload: GithubIssuePayload): string {
-		let message: string = '';
-
+	onIssue( payload: GithubIssuePayload ): string {
 		const { action, issue, } = payload;
 
 		if ( action === 'opened' ) {
@@ -22,11 +20,11 @@ export class GithubService {
 		}
 
 		if ( action === 'closed' ) {
-			return  `An issue was close by ${ issue.user.login} `;
+			return  `An issue was closed by ${ issue.user.login }`;
 		}
 
 		if ( action === 'reopened' ) {
-			return `An issue was reopened by ${ issue.user.login} `;
+			return `An issue was reopened by ${ issue.user.login }`;
 		}
 		
 		return `Unhandled actioon for the issue event ${ action }`;
